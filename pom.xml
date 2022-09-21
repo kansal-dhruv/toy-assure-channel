@@ -1,0 +1,89 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.increff</groupId>
+  <artifactId>toy-assure-channelPojo</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>Archetype - toy-assure-channelPojo</name>
+  <url>http://maven.apache.org</url>
+  <packaging>war</packaging>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <swagger.version>2.4.0</swagger.version>
+    <jackson.version>2.13.4</jackson.version>
+    <!-- Project dependencies -->
+    <spring.version>4.3.6.RELEASE</spring.version>
+    <jetty.version>9.4.13.v20181111</jetty.version>
+    <jetty.http.port>9001</jetty.http.port>
+    <jetty.context>/ta-channel</jetty.context>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger2</artifactId>
+      <version>${swagger.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <version>${swagger.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.5</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.increff</groupId>
+      <artifactId>toy-assure-commons</artifactId>
+      <scope>system</scope>
+      <version>0.0.1-SNAPSHOT</version>
+      <systemPath>${project.basedir}/../toy-assure-commons/target/toy-assure-commons-1.0-SNAPSHOT.jar</systemPath>
+<!--      <systemPath>/Users/dhruvkansal/Increff-Training/toy-assure-commons/target/toy-assure-commons-1.0-SNAPSHOT.jar</systemPath>-->
+    </dependency>
+
+  </dependencies>
+  <build>
+    <plugins>
+      <!-- Jetty plugin, for web application testing -->
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>${jetty.version}</version>
+        <configuration>
+          <scanIntervalSeconds>2</scanIntervalSeconds>
+          <useTestClasspath>false</useTestClasspath>
+          <systemProperties>
+            <systemProperty>
+              <name>log4j.configuration</name>
+              <value>file:./log4j.properties</value>
+            </systemProperty>
+          </systemProperties>
+          <httpConnector>
+            <port>${jetty.http.port}</port>
+          </httpConnector>
+          <webApp>
+            <contextPath>${jetty.context}</contextPath>
+          </webApp>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
